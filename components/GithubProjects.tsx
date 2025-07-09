@@ -1,14 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Octokit } from "@octokit/rest";
-import { Endpoints } from "@octokit/types";
 import Image from "next/image";
 import { Button } from "./ui/button";
 
 const octokit = new Octokit();
 
-type Repo = Endpoints["GET /repos/{owner}/{repo}"]["response"];
-
 export default async function GithubProjects() {
-  let repos: Repo["data"][] = [];
+  let repos: any[] = [];
   let error = null;
 
   try {
