@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    remotePatterns: [new URL("https://avatars.githubusercontent.com/u/98798154?v=4")],
+    domains: ["avatars.githubusercontent.com"]
   },
 };
 

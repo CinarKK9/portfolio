@@ -10,7 +10,7 @@ export default function GithubSection({
 }) {
   return (
     <>
-      <div className="w-full h-full absolute -z-10">
+      <div className="w-full h-full absolute invisible md:visible">
         <TextHoverEffect text="GITHUB" />
       </div>
       {children}

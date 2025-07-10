@@ -11,11 +11,11 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="fixed w-full backdrop-blur-2xl flex items-center justify-center p-4 border-b z-50">
+      <div className="fixed w-full backdrop-blur-2xl flex items-center justify-center p-4 border-b z-100 max-w-screen">
         <div className="absolute left-4">
           <span className="font-bold text-xl">CK ✧</span>
         </div>
-        <div>
+        <div className="invisible md:visible">
           {items.map((item, index) => (
             <Button variant={"ghost"} key={index}>
               {item.label}

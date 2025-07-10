@@ -10,8 +10,8 @@ const font = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Çınar Küçükkaya",
-  description: "Portfolio of Çınar Küçükkaya",
+  title: "Çınar",
+  description: "Portfolio of Çınar",
 };
 
 export default function RootLayout({

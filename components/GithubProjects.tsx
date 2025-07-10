@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Octokit } from "@octokit/rest";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { CardSpotlight } from "./ui/card-spotlight";
+import { Star } from "lucide-react";
 
 const octokit = new Octokit();
 
@@ -11,11 +12,11 @@ export default async function GithubProjects() {
 
   try {
     const { data } = await octokit.repos.listForUser({
-      username: "CinarKK9", // Your GitHub username
-      sort: "created", // Sort by stars for better presentation
-      per_page: 100, // Fetch up to 100 repos
+      username: "cinarkk9",
+      sort: "created",
+      per_page: 20,
     });
-    repos = data.filter((repo) => !repo.fork && repo.description);
+    repos = data.filter((repo) => !repo.fork);
   } catch (err) {
     error = "Error loading GitHub projects. Please try again later.";
     console.error("Error fetching repos:", err);
@@ -26,13 +27,13 @@ export default async function GithubProjects() {
   }
 
   return (
-    <div className="grid grid-cols-3 mt-4 ms-4 gap-5">
+    <div className="grid mt-4 mx-4 gap-5 md:grid-cols-3">
       {repos.map((repo) => (
-        <div
+        <CardSpotlight
           key={repo.id}
-          className="flex flex-col justify-center gap-2 border p-2 rounded-md"
+          className="flex flex-col justify-center gap-2 border p-3 rounded-md backdrop-blur-sm"
         >
-          <div className="flex items-center gap-2 font-bold">
+          <div className="flex items-center gap-2 font-bold z-10">
             <Image
               src={repo.owner.avatar_url}
               alt={`${repo.owner.login}'s avatar`}
@@ -42,16 +43,18 @@ export default async function GithubProjects() {
             />
             <span>{repo.owner.login}</span>
           </div>
-          <div>
+          <div className="z-10">
             <span>{repo.name.replaceAll("-", " ")}</span>
           </div>
-          <div>
-            <span>{repo.description}</span>
+          <div className="z-10">
+            <span className="text-muted-foreground text-sm">
+              {repo.description || "No description"}
+            </span>
           </div>
-          <div className="flex items-center justify-between">
-            <div>
-              <span>⭐ {repo.stargazers_count}</span>
-              <span>🍴 {repo.forks_count}</span>
+          <div className="flex justify-between z-10">
+            <div className="flex items-baseline-last justify-between gap-1 h-full">
+              <Star size={16} color="yellow" />
+              <span>{repo.stargazers_count}</span>
             </div>
             <a
               href={repo.html_url}
@@ -59,10 +62,10 @@ export default async function GithubProjects() {
               rel="noopener noreferrer"
               className="underline text-blue-400"
             >
-              <Button>Visit</Button>
+              <Button className="rounded">Visit</Button>
             </a>
           </div>
-        </div>
+        </CardSpotlight>
       ))}
     </div>
   );
